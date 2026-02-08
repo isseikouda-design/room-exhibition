@@ -51,8 +51,8 @@ html, body {
   left: 50%;
 
   /* ★枠より少し大きくする */
-  width: 105%;
-  height: 105%;
+  width: 100%;
+  height: 100%;
 
   transform: translate(-50%, -50%);
   border: none;
