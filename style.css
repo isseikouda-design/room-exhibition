@@ -75,7 +75,7 @@ html, body {
   cursor: pointer;
 }
 
-/* ログ */
+/* ログ（PC） */
 #log {
   width: 260px;
   height: calc(70vw * 9 / 16);
@@ -99,6 +99,7 @@ html, body {
   .pcOnly { display: none !important; }
   .spOnly { display: block !important; }
 
+  /* 全体を左詰め・縦並び */
   #container {
     align-items: flex-start;
     justify-content: flex-start;
@@ -106,7 +107,8 @@ html, body {
 
   #stage {
     flex-direction: column;
-    gap: 14px;
+    align-items: flex-start;   /* ★左詰め */
+    gap: 12px;
     padding: 16px;
     width: 100%;
     box-sizing: border-box;
@@ -115,32 +117,36 @@ html, body {
   /* スマホ用ボタン */
   #buttonsSp {
     display: flex;
-    flex-direction: column;
+    flex-direction: column;    /* ★縦並び */
     gap: 10px;
-    width: 100%;
-    max-width: 320px;
+    width: 220px;              /* ★ログと揃える */
   }
 
   #buttonsSp button {
     background: #fff;
     border: 1px solid #cfcfcf;
     border-radius: 14px;
-    padding: 12px 16px;
+    padding: 12px 14px;
+
     font-size: 16px;
     font-weight: 500;
     color: #007aff;
     text-align: left;
   }
 
-  /* ログ */
+  /* ログ（スマホ） */
   #log {
-    width: 100%;
-    max-width: 320px;
-    max-height: 50vh;
+    width: 220px;              /* ★横幅を細く */
+    height: 60vh;              /* ★縦を長く */
+    overflow-y: auto;
+
     background: #fff;
     border: 1px solid #cfcfcf;
     border-radius: 14px;
+
     padding: 12px;
+    box-sizing: border-box;
+
     font-size: 12px;
     line-height: 1.6;
     color: #111;
