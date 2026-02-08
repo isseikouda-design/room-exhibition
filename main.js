@@ -1,7 +1,6 @@
 /* ==========================
    設定
 ========================== */
-
 const PI_BASE = 'https://aud-soft-power-seeds.trycloudflare.com';
 
 /* ==========================
@@ -44,7 +43,6 @@ function renderLog(items) {
       frag.appendChild(div);
     });
 
-  // 一括で差し替え
   logEl.replaceChildren(frag);
   logEl.scrollTop = logEl.scrollHeight;
 }
@@ -77,7 +75,7 @@ async function fetchLog() {
 }
 
 /* ==========================
-   ボタン処理
+   ボタン処理（PC / SP 共通）
 ========================== */
 function setupButtons() {
   const buttons = document.querySelectorAll(
@@ -101,7 +99,6 @@ function setupButtons() {
     });
   });
 }
-
 
 /* ==========================
    初期化

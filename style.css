@@ -6,6 +6,15 @@ html, body {
   background: white;
 }
 
+/* =========================
+   PC / SP 切り替え
+========================= */
+.pcOnly { display: block; }
+.spOnly { display: none; }
+
+/* =========================
+   レイアウト（PC）
+========================= */
 #container {
   width: 100%;
   height: 100%;
@@ -20,49 +29,35 @@ html, body {
   align-items: flex-start;
 }
 
-/* ===== 黒い箱（表示したい最終サイズ） ===== */
+/* 黒フレーム */
 #frame {
   width: 70vw;
   aspect-ratio: 16 / 9;
   background: black;
   position: relative;
-  overflow: hidden;   /* ★ はみ出し切る */
+  overflow: hidden;
 }
 
-/* ===== 共通レイヤー ===== */
+/* 動画レイヤー */
 #video-layer {
   position: absolute;
   inset: 0;
   overflow: hidden;
 }
 
-/* ===== Cloudflare iframeを物理的に拡大 ===== */
+/* Cloudflare iframe */
 #stream {
   position: absolute;
   top: 50%;
   left: 50%;
-
   width: 100%;
   height: 100%;
-
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) scale(0.92);
   border: none;
-
   pointer-events: none;
 }
 
-/* ===== ログ ===== */
-#log {
-  width: 260px;
-  height: calc(70vw * 9 / 16);
-  overflow-y: auto;
-  background: rgba(255,255,255,0.9);
-  font-size: 12px;
-  line-height: 1.4;
-  padding: 10px;
-}
-
-/* ===== ボタン ===== */
+/* PCボタン */
 #buttons {
   position: absolute;
   bottom: 20px;
@@ -79,25 +74,31 @@ html, body {
   font-size: 14px;
   cursor: pointer;
 }
+
+/* ログ */
+#log {
+  width: 260px;
+  height: calc(70vw * 9 / 16);
+  overflow-y: auto;
+  background: rgba(255,255,255,0.9);
+  font-size: 12px;
+  line-height: 1.4;
+  padding: 10px;
+}
+
 /* =========================
-   SP専用：操作UIのみ表示
+   スマホ表示
 ========================= */
 @media (max-width: 768px) {
 
-  /* 全体背景 */
   html, body {
     background: #f2f2f2;
     height: auto;
   }
 
-  /* 動画・黒フレームは使わない */
-  #frame,
-  #video-layer,
-  #stream {
-    display: none !important;
-  }
+  .pcOnly { display: none !important; }
+  .spOnly { display: block !important; }
 
-  /* レイアウトを左詰め1カラムに */
   #container {
     align-items: flex-start;
     justify-content: flex-start;
@@ -105,16 +106,14 @@ html, body {
 
   #stage {
     flex-direction: column;
-    align-items: flex-start;
     gap: 14px;
     padding: 16px;
     width: 100%;
     box-sizing: border-box;
   }
 
-  /* ボタン群 */
-  #buttons {
-    position: static;
+  /* スマホ用ボタン */
+  #buttonsSp {
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -122,16 +121,14 @@ html, body {
     max-width: 320px;
   }
 
-  #buttons button {
+  #buttonsSp button {
     background: #fff;
     border: 1px solid #cfcfcf;
     border-radius: 14px;
     padding: 12px 16px;
-
     font-size: 16px;
     font-weight: 500;
-    color: #007aff;   /* 青 */
-
+    color: #007aff;
     text-align: left;
   }
 
@@ -139,18 +136,13 @@ html, body {
   #log {
     width: 100%;
     max-width: 320px;
-    height: auto;
     max-height: 50vh;
-
     background: #fff;
     border: 1px solid #cfcfcf;
     border-radius: 14px;
-
     padding: 12px;
-    box-sizing: border-box;
-
     font-size: 12px;
     line-height: 1.6;
-    color: #111;      /* 黒 */
+    color: #111;
   }
 }
