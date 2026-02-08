@@ -44,7 +44,6 @@ function renderLog(items) {
       frag.appendChild(div);
     });
 
-  // 一括で差し替え
   logEl.replaceChildren(frag);
   logEl.scrollTop = logEl.scrollHeight;
 }
@@ -77,27 +76,26 @@ async function fetchLog() {
 }
 
 /* ==========================
-   ボタン処理
+   ボタン処理（PC / SP 共通）
 ========================== */
 function setupButtons() {
-  const buttons = document.querySelectorAll('#buttons button');
+  const buttons = document.querySelectorAll(
+    '#buttons button, #buttonsSp button'
+  );
 
   buttons.forEach(btn => {
     btn.addEventListener('click', async () => {
-      const raw = btn.dataset.word;        // hello / how-are-you
-      const word = raw.replace(/-/g, '');  // hello / howareyou
+      const raw = btn.dataset.word;
+      const word = raw.replace(/-/g, '');
 
-      // ① 即時表示
       renderInstant(raw);
 
-      // ② Pi に送信
       try {
         await fetch(`${PI_BASE}/${word}`);
       } catch (err) {
         console.error('send error', err);
       }
 
-      // ③ 少し待って確定ログで置き換え
       setTimeout(fetchLog, 500);
     });
   });
