@@ -170,11 +170,14 @@ html, body {
     gap: 10px;
     width: 220px;
   }
-
   #buttonsSp button {
-    width: 100%;
-    text-align: left;
+    width: auto;              /* ★文字幅に戻す */
+    align-self: flex-start;   /* ★左詰め */
+    padding: 6px 8px;         /* ★文字に近いサイズ感 */
+    font-size: 14px;
+    border-radius: 10px;
   }
+ 
 
   /* ログは細く・縦長 */
   #log {
