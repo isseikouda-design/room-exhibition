@@ -7,16 +7,32 @@ const PI_BASE = 'https://aud-soft-power-seeds.trycloudflare.com';
 /* ==========================
    Piログ1行の整形（JSTそのまま表示・最終確定）
 ========================== */
+/* ==========================
+   Piログ1行の整形（UTC → JST 正式変換）
+========================== */
 function formatLine(item) {
   if (!item || !item.word || !item.time) return '';
 
-  // ★ Pi 側ですでに JST。Date変換しない
-  const t = item.time;
+  // ★ Z を付けて「UTCだよ」と明示
+  const d = new Date(item.time.endsWith('Z') ? item.time : item.time + 'Z');
+  if (isNaN(d)) return '';
+
+  // ★ 日本時間で表示
+  const formatted = d.toLocaleString('ja-JP', {
+    timeZone: 'Asia/Tokyo',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  });
 
   const word =
     item.word === 'howareyou' ? 'how-are-you' : item.word;
 
-  return `[${t}] ${word}`;
+  return `[${formatted.replace(/\//g, '-').replace(',', '')}] ${word}`;
 }
 
 
