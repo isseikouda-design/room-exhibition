@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Room</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div id="container">
+    <div id="stage">
+
+      <div id="frame">
+        <!-- ★ iframe とボタンの共通レイヤー -->
+        <div id="video-layer">
+          <iframe
+  id="stream"
+  src="https://customer-g79hri7p6ofrajnj.cloudflarestream.com/780c5bdee192e44a7b52f7fd3ae89346/iframe?autoplay=true&muted=true&controls=false"
+  allow="autoplay; fullscreen; picture-in-picture"
+  allowfullscreen
+></iframe>
+
+
+          <div id="buttons">
+            <button data-word="hello">hello</button>
+            <button data-word="how-are-you">how are you</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="log"></div>
+
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
