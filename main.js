@@ -9,28 +9,34 @@ const PI_BASE = 'https://aud-soft-power-seeds.trycloudflare.com';
 /* ==========================
    Piログ1行の整形（UTC → JST）
 ========================== */
+/* ==========================
+   Piログ1行の整形（UTC → JST 確定）
+========================== */
 function formatLine(item) {
   if (!item || !item.word || !item.time) return '';
 
-  // UTCとして解釈させる（★重要）
-  const t = new Date(item.time + 'Z');
-  if (isNaN(t)) return '';
+  const d = new Date(item.time);
+  if (isNaN(d)) return '';
 
-  // JSTに変換（+9時間）
-  t.setHours(t.getHours() + 9);
-
-  const yyyy = t.getFullYear();
-  const mm = String(t.getMonth() + 1).padStart(2, '0');
-  const dd = String(t.getDate()).padStart(2, '0');
-  const hh = String(t.getHours()).padStart(2, '0');
-  const mi = String(t.getMinutes()).padStart(2, '0');
-  const ss = String(t.getSeconds()).padStart(2, '0');
+  // ★ 強制的に日本時間でフォーマット
+  const formatted = d.toLocaleString('ja-JP', {
+    timeZone: 'Asia/Tokyo',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  }).replace(/\//g, '-');
 
   const word =
     item.word === 'howareyou' ? 'how-are-you' : item.word;
 
-  return `[${yyyy}-${mm}-${dd} ${hh}:${mi}:${ss}] ${word}`;
+  // ja-JP は "YYYY-MM-DD HH:MM:SS" になる
+  return `[${formatted}] ${word}`;
 }
+
 
 
 /* ==========================
