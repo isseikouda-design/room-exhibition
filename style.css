@@ -64,11 +64,14 @@ html, body {
 #buttons {
   position: absolute;
   bottom: 20px;
-  left: 20px;
+  right: 20px;   /* ★右側に20px余白 */
+  left: auto;    /* ★念のため左を無効化 */
+
   display: flex;
   gap: 12px;
   z-index: 10;
 }
+
 
 #buttons button {
   background: rgba(255,255,255,0.85);
