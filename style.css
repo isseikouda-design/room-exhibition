@@ -1,7 +1,3 @@
-/* ==========================
-   リセット
-========================== */
-
 html, body {
   margin: 0;
   padding: 0;
@@ -9,22 +5,6 @@ html, body {
   height: 100%;
   background: white;
 }
-
-/* ==========================
-   PC / SP 切り替え
-========================== */
-
-.pcOnly { display: block; }
-.spOnly { display: none; }
-
-@media (max-width: 768px) {
-  .pcOnly { display: none; }
-  .spOnly { display: block; }
-}
-
-/* ==========================
-   レイアウト
-========================== */
 
 #container {
   width: 100%;
@@ -40,35 +20,49 @@ html, body {
   align-items: flex-start;
 }
 
-/* ==========================
-   黒い動画フレーム（PC）
-========================== */
-
+/* ===== 黒い箱（表示したい最終サイズ） ===== */
 #frame {
   width: 70vw;
   aspect-ratio: 16 / 9;
   background: black;
   position: relative;
-  overflow: hidden;
+  overflow: hidden;   /* ★ はみ出し切る */
 }
 
+/* ===== 共通レイヤー ===== */
 #video-layer {
   position: absolute;
   inset: 0;
   overflow: hidden;
 }
 
+/* ===== Cloudflare iframeを物理的に拡大 ===== */
 #stream {
   position: absolute;
-  inset: 0;
+  top: 50%;
+  left: 50%;
+
+  width: 100%;
+  height: 100%;
+
+  transform: translate(-50%, -50%);
   border: none;
+
   pointer-events: none;
 }
 
-/* ==========================
-   PC用ボタン（動画上）
-========================== */
+/* ===== ログ ===== */
+#log {
+  width: 260px;
+  height: calc(70vw * 9 / 16);
+  overflow-y: auto;
+  background: rgba(255,255,255,0.9);
+  font-size: 12px;
+  line-height: 1.4;
+  padding: 10px;
+}
 
+/* ===== ボタン ===== */
 #buttons {
   position: absolute;
   bottom: 20px;
@@ -85,31 +79,16 @@ html, body {
   font-size: 14px;
   cursor: pointer;
 }
-
-/* ==========================
-   ログ（共通）
-========================== */
-
-#log {
-  width: 260px;
-  height: calc(70vw * 9 / 16);
-  overflow-y: auto;
-  background: rgba(255,255,255,0.9);
-  font-size: 12px;
-  line-height: 1.4;
-  padding: 10px;
-}
-
-/* ==========================
-   SPレイアウト
-========================== */
-
+/* =========================
+   SP：ボタン＋ログ（公開版調整）
+========================= */
 @media (max-width: 768px) {
 
   body {
     background: #f2f2f2;
   }
 
+  /* レイアウトを縦積み */
   #stage {
     flex-direction: column;
     align-items: flex-start;
@@ -117,8 +96,9 @@ html, body {
     gap: 12px;
   }
 
-  /* ===== SP用ボタン（ログの上） ===== */
-  #buttonsSp {
+  /* ===== ボタン復活（ログの上） ===== */
+  #buttons {
+    position: static;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -127,7 +107,7 @@ html, body {
     max-width: 260px;
   }
 
-  #buttonsSp button {
+  #buttons button {
     background: #ffffff;
     border: 1px solid #cfcfcf;
     border-radius: 14px;
@@ -140,7 +120,7 @@ html, body {
     text-align: left;
   }
 
-  /* ===== SPログ ===== */
+  /* ===== ログを細く ===== */
   #log {
     width: 100%;
     max-width: 260px;

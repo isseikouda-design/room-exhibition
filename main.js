@@ -44,6 +44,7 @@ function renderLog(items) {
       frag.appendChild(div);
     });
 
+  // 一括で差し替え
   logEl.replaceChildren(frag);
   logEl.scrollTop = logEl.scrollHeight;
 }
@@ -76,7 +77,7 @@ async function fetchLog() {
 }
 
 /* ==========================
-   ボタン処理（PC / SP 共通）
+   ボタン処理
 ========================== */
 function setupButtons() {
   const buttons = document.querySelectorAll(
@@ -100,6 +101,7 @@ function setupButtons() {
     });
   });
 }
+
 
 /* ==========================
    初期化
