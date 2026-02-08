@@ -6,11 +6,18 @@ const PI_BASE = 'https://aud-soft-power-seeds.trycloudflare.com';
 /* ==========================
    Piログ1行の整形（UTC → ローカル）
 ========================== */
+/* ==========================
+   Piログ1行の整形（UTC → JST）
+========================== */
 function formatLine(item) {
   if (!item || !item.word || !item.time) return '';
 
-  const t = new Date(item.time);
+  // UTCとして解釈させる（★重要）
+  const t = new Date(item.time + 'Z');
   if (isNaN(t)) return '';
+
+  // JSTに変換（+9時間）
+  t.setHours(t.getHours() + 9);
 
   const yyyy = t.getFullYear();
   const mm = String(t.getMonth() + 1).padStart(2, '0');
@@ -24,6 +31,7 @@ function formatLine(item) {
 
   return `[${yyyy}-${mm}-${dd} ${hh}:${mi}:${ss}] ${word}`;
 }
+
 
 /* ==========================
    ログ描画（確定ログ）

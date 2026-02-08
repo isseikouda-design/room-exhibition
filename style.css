@@ -98,8 +98,11 @@ html, body {
 @media (max-width: 768px) {
 
   html, body {
-    background: #f2f2f2;
     height: auto;
+    overflow: hidden;          /* ★上下スクロールを殺す */
+    overscroll-behavior: none; /* ★iOSのビヨンを殺す */
+    touch-action: manipulation;
+    background: #f2f2f2;
   }
 
   .pcOnly { display: none !important; }
