@@ -152,3 +152,34 @@ html, body {
     color: #111;
   }
 }
+/* =========================
+   🔴 反映確認用（超派手）
+   ========================= */
+@media (max-width: 768px) {
+
+  html, body {
+    background: red !important;
+  }
+
+  #stage {
+    background: red !important;
+    border: 10px solid blue !important;
+  }
+
+  #buttonsSp {
+    background: yellow !important;
+    border: 5px solid black !important;
+  }
+
+  #buttonsSp button {
+    background: lime !important;
+    color: black !important;
+    border: 3px solid black !important;
+  }
+
+  #log {
+    background: orange !important;
+    border: 5px solid black !important;
+    color: black !important;
+  }
+}
