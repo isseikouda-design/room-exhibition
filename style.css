@@ -11,7 +11,7 @@ body {
    調整用変数
 ========================= */
 :root {
-  --sp-col-w: 300px;
+  --sp-col-w: 280px;
   --sp-info-w: 200px;
   --sp-log-h: 55vh;
   --sp-info-h: 20vh;
