@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   width: 100%;
@@ -7,13 +8,29 @@ html, body {
 }
 
 /* =========================
-   PC / SP 切り替え
+   調整用変数
 ========================= */
-.pcOnly { display: block; }
-.spOnly { display: none; }
+:root {
+  --sp-col-w: 300px;
+  --sp-info-w: 200px;
+  --sp-log-h: 55vh;
+  --sp-info-h: 20vh;
+  --sp-btn-gap: 8px; /* ← 広げた */
+}
 
 /* =========================
-   レイアウト（PC）
+   PC / SP 切り替え
+========================= */
+.pcOnly {
+  display: block;
+}
+
+.spOnly {
+  display: none;
+}
+
+/* =========================
+   PCレイアウト
 ========================= */
 #container {
   width: 100%;
@@ -29,7 +46,6 @@ html, body {
   align-items: flex-start;
 }
 
-/* 黒フレーム */
 #frame {
   width: 70vw;
   aspect-ratio: 16 / 9;
@@ -38,55 +54,33 @@ html, body {
   overflow: hidden;
 }
 
-/* 動画レイヤー */
 #video-layer {
   position: absolute;
   inset: 0;
-  overflow: hidden;
 }
-/* Cloudflare iframe（PC：黒縁なし） */
+
 #stream {
   position: absolute;
-  top: 50%;
-  left: 50%;
-
-  /* ★枠より少し大きくする */
+  inset: 0;
   width: 100%;
   height: 100%;
-
-  transform: translate(-50%, -50%);
   border: none;
   pointer-events: none;
 }
 
-
-/* PCボタン */
 #buttons {
   position: absolute;
   bottom: 20px;
-  right: 20px;   /* ★右側に20px余白 */
-  left: auto;    /* ★念のため左を無効化 */
-
+  right: 20px;
   display: flex;
   gap: 12px;
-  z-index: 10;
 }
 
-
-#buttons button {
-  background: rgba(255,255,255,0.85);
-  border: none;
-  padding: 8px 14px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-/* ログ（PC） */
 #log {
-  width: 260px;
+  width: 300px;
   height: calc(70vw * 9 / 16);
   overflow-y: auto;
-  background: rgba(255,255,255,0.9);
+  background: rgba(255, 255, 255, 0.9);
   font-size: 12px;
   line-height: 1.4;
   padding: 10px;
@@ -97,100 +91,205 @@ html, body {
 ========================= */
 @media (max-width: 768px) {
 
-  html, body {
+  html,
+  body {
     height: auto;
-    overflow: hidden;          /* ★上下スクロールを殺す */
-    overscroll-behavior: none; /* ★iOSのビヨンを殺す */
-    touch-action: manipulation;
+    overflow: hidden;
     background: #f2f2f2;
   }
 
-  .pcOnly { display: none !important; }
-  .spOnly { display: block !important; }
+  .pcOnly {
+    display: none !important;
+  }
 
-  /* 全体を左詰め・縦並び */
+  .spOnly {
+    display: block !important;
+  }
+
   #container {
     align-items: flex-start;
     justify-content: flex-start;
   }
 
   #stage {
+    display: flex;
     flex-direction: column;
-    align-items: flex-start;   /* ★左詰め */
-    gap: 12px;
+    align-items: flex-start;
+    gap: 14px;
     padding: 16px;
-    width: 100%;
-    box-sizing: border-box;
   }
 
-  /* スマホ用ボタン */
+  /* =========================
+     スマホ用ボタン（縦並び）
+  ========================= */
   #buttonsSp {
     display: flex;
-    flex-direction: column;    /* ★縦並び */
-    gap: 10px;
-    width: 220px;              /* ★ログと揃える */
+    flex-direction: column;
+    align-items: flex-start;
+    width: auto;
+    max-width: 180px; /* ← 横幅を制限 */
+    gap: var(--sp-btn-gap);
   }
 
   #buttonsSp button {
+    width: auto;
     background: #fff;
     border: 1px solid #cfcfcf;
-    border-radius: 14px;
-    padding: 12px 14px;
-
-    font-size: 16px;
+    border-radius: 10px;
+    padding: 3px 7px;   /* ← 横サイズを小さく */
+    font-size: 18px;    /* ← 少しだけ小さく */
     font-weight: 500;
     color: #007aff;
+    white-space: nowrap;
     text-align: left;
   }
 
-  /* ログ（スマホ） */
-  #log {
-    width: 220px;              /* ★横幅を細く */
-    height: 60vh;              /* ★縦を長く */
-    overflow-y: auto;
-
-    background: #fff;
-    border: 1px solid #cfcfcf;
-    border-radius: 14px;
-
-    padding: 12px;
-    box-sizing: border-box;
-
-    font-size: 12px;
-    line-height: 1.6;
-    color: #111;
-  }
-}
-/* =========================
-   スマホ：ボタンを縦並びにする（確定版）
-========================= */
-@media (max-width: 768px) {
-
-  /* PC用ボタンは完全に消す */
+  /* PC用ボタンはスマホでは完全に無効 */
   #buttons {
     display: none !important;
   }
 
-  /* スマホ用ボタンを縦並び */
+  /* =========================
+     ログ
+  ========================= */
+  #log {
+    width: var(--sp-col-w);
+    height: var(--sp-log-h);
+    overflow-y: auto;
+    background: #fff;
+    border: 1px solid #cfcfcf;
+    border-radius: 14px;
+    padding: 12px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* =========================
+     説明ボックス
+  ========================= */
+  .sp-info {
+    width: var(--sp-info-w);
+    max-height: var(--sp-info-h);
+    overflow-y: auto;
+    background: #fff;
+    border: 1px solid #cfcfcf;
+    border-radius: 14px;
+    padding: 12px;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+}
+
+/* =========================
+   スマホ用：半円ライン
+========================= */
+#breath {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 25vh;
+  pointer-events: none;
+  z-index: 5;
+}
+
+#breath path {
+  fill: none;
+  stroke: rgba(0, 0, 0, 0.35);
+  stroke-width: 0.2;
+}
+
+/* =========================
+   スマホ用：紙の揺れ
+========================= */
+#paper {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 24vw;
+  height: 35vh;
+  pointer-events: none;
+}
+
+#paper path {
+  fill: none;
+  stroke: rgba(0, 0, 0, 0.35);
+  stroke-width: 0.9;
+  stroke-linecap: round;
+}
+
+@media (max-width: 768px) {
+
   #buttonsSp {
     display: flex !important;
     flex-direction: column !important;
     align-items: flex-start !important;
-    gap: 10px;
-    width: 220px;
+    
   }
-  #buttonsSp button {
-    width: auto;              /* ★文字幅に戻す */
-    align-self: flex-start;   /* ★左詰め */
-    padding: 6px 8px;         /* ★文字に近いサイズ感 */
-    font-size: 14px;
-    border-radius: 10px;
-  }
- 
 
-  /* ログは細く・縦長 */
-  #log {
-    width: 220px;
-    height: 60vh;
-  }
 }
+#edge-box {
+  /* ボックスの背景色 */
+  --edge-bg: #efefef;
+
+  /* 破線の色 */
+  --edge-line: rgba(32, 32, 32, 0.22);
+
+    --edge-border: rgba(120,120,120,0.35); /* 左の境界線 */
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 29px;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 3;
+}
+
+
+#bottom-edge {
+  --edge-bg: #efefef;
+  --edge-dot: rgba(32, 32, 32, 0.25);
+
+  position: fixed;
+  left: 0;
+  bottom: 0;
+
+  width: 100vw;
+  height: var(--bottom-edge-h);
+
+  pointer-events: none;
+  z-index: 6;
+
+  background-color: var(--edge-bg);
+
+  /* ★ ドット模様 */
+  background-image:
+    radial-gradient(
+      circle,
+      var(--edge-dot) 1px,
+      transparent 1.2px
+    );
+  background-size: 8px 8px;
+
+  /* ★これが超重要 */
+#bottom-edge svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+}
+
+
+
+:root {
+  --bottom-edge-h: 32px;
+}
+
+
+
+#breath {
+  bottom: var(--bottom-edge-h);
+}
+
+

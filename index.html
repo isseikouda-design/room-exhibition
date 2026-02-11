@@ -6,8 +6,8 @@
   <title>Room</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
 
+<body>
   <div id="container">
     <div id="stage">
 
@@ -31,7 +31,7 @@
       </div>
 
       <!-- =========================
-           スマホ用：ボタンのみ
+           スマホ用：ボタン（縦並び）
            ========================= -->
       <div id="buttonsSp" class="spOnly">
         <button data-word="hello">hello</button>
@@ -39,13 +39,149 @@
       </div>
 
       <!-- =========================
-           ログ（PC / SP 共通）
+           ログ
            ========================= -->
       <div id="log"></div>
+
+      <!-- =========================
+           スマホ用：説明ボックス
+           ========================= -->
+      <div class="sp-info spOnly">
+        <p>
+          This is the website for <br />
+          Issei Kouda's exhibition "hello there".<br />
+          When you press <span class="word">hello</span>, the transparent bag will
+          expand slightly, and when you press
+          <span class="word">howareyou</span>, the tape peeling off the wall will
+          shake slightly.
+        </p>
+
+        <p>
+          If you view this site on your computer, you can see the live broadcast.
+        </p>
+      </div>
 
     </div>
   </div>
 
   <script src="main.js"></script>
+
+  <!-- スマホ用：膨らむ線 -->
+  <svg id="breath" class="spOnly" viewBox="0 0 100 50" preserveAspectRatio="none">
+    <path id="breathPath" d="" />
+  </svg>
+
+  <!-- スマホ用：ひらひらする紙 -->
+  <svg id="paper" class="spOnly" viewBox="0 0 100 400" preserveAspectRatio="none">
+    <path id="paperPath" d="" />
+  </svg>
+
+  <div id="edge-box" class="spOnly">
+
+  <svg
+    viewBox="0 0 20 100"
+    preserveAspectRatio="none"
+    width="100%"
+    height="100%"
+  >
+    <defs>
+      <style>
+  .edge-bg {
+    fill: var(--edge-bg);
+  }
+  .edge-line {
+    stroke: var(--edge-line);
+  }
+  .edge-border {
+    stroke: var(--edge-border); /* ← ★これを追加 */
+  }
+</style>
+
+
+      <pattern
+        id="diagDash"
+        patternUnits="userSpaceOnUse"
+        width="2"
+        height="4"
+        patternTransform="rotate(-80)"
+      >
+        <line
+          x1="0"
+          y1="0"
+          x2="0"
+          y2="2"
+          class="edge-line"
+          stroke-width="0.5"
+        />
+      </pattern>
+    </defs>
+
+    <!-- 背景 -->
+    <rect
+      x="0"
+      y="0"
+      width="20"
+      height="100"
+      class="edge-bg"
+    />
+
+    <!-- 破線（ここは触らない） -->
+    <rect
+      x="0"
+      y="0"
+      width="20"
+      height="100"
+      fill="url(#diagDash)"
+    />
+    
+    <!-- 左側の境界線（★追加） -->
+    <line
+      x1="0"
+      y1="0"
+      x2="0"
+      y2="100"
+      class="edge-border"
+      stroke-width="0.6"
+    />
+  </svg>
+</div>
+
+
+<div id="bottom-edge" class="spOnly">
+  <svg
+    viewBox="0 0 100 100"
+    preserveAspectRatio="xMidYMid meet"
+    width="100%"
+    height="100%"
+  >
+    <defs>
+      <style>
+        .edge-bg { fill: var(--edge-bg); }
+        .edge-dot { fill: var(--edge-dot); }
+      </style>
+
+      <pattern
+        id="dotPatternBottom"
+        patternUnits="userSpaceOnUse"
+        width="6"
+        height="6"
+      >
+        <circle
+          cx="3"
+          cy="3"
+          r="1"
+          class="edge-dot"
+        />
+      </pattern>
+    </defs>
+    
+  </svg>
+</div>
+
+
+
+
+
+
 </body>
 </html>
